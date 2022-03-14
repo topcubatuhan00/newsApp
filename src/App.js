@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import {SafeAreaView, View, Text, FlatList, StyleSheet} from 'react-native';
 
 import news_data from '../data/news_data.json';
-import news_banner_data from '../data/news_banner_data.json';
+import Banner from './components/Banner';
 import NewsCard from './components/NewsCard';
 
 const App = () => {
@@ -20,17 +11,7 @@ const App = () => {
       <View>
         <Text style={styles.title}>News App</Text>
         <FlatList
-          ListHeaderComponent={() => (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {news_banner_data.map(bannerNews => (
-                <Image
-                  keyExtractor={item => item.id.toString()}
-                  style={styles.bannerImage}
-                  source={{uri: bannerNews.imageUrl}}
-                />
-              ))}
-            </ScrollView>
-          )}
+          ListHeaderComponent={() => <Banner />}
           keyExtractor={item => item.u_id.toString()}
           data={news_data}
           renderItem={({item}) => <NewsCard news={item} />}
@@ -53,11 +34,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     letterSpacing: 1,
-  },
-  bannerImage: {
-    height: Dimensions.get('window').height / 3,
-    width: Dimensions.get('window').width / 1,
-    marginBottom: 20,
   },
 });
 
